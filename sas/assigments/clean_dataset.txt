@@ -1,0 +1,28 @@
+/*view new dataset*/
+proc print data=new_data;
+
+
+  data new_Fitness;
+    set Fitness;
+    if Oxygen= '.'
+    then
+    do;
+    new_Oxygen = tranwrd(Oxygen, ".", "");
+    end;
+    else
+    do;
+    new_Oxygen = Oxygen;
+    end;
+
+run;
+
+/*view new dataset*/
+proc print data=new_Fitness;
+
+data test2;
+	set new_Fitness;
+	nmiss=nmiss(Oxygen);
+	cmiss=cmiss(Oxygen);
+	non_missing = n(Oxygen);
+	first_non_miss = coalesce(Oxygen);
+run;
