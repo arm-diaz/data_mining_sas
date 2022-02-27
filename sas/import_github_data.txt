@@ -1,0 +1,8 @@
+data _null_;
+ version = gitfn_version();
+ put version=;
+
+ rc = gitfn_clone("https://github.com/arm-diaz/data_mining_sas.git",
+   "/home/u60703418/test");
+ put rc=;
+run;
