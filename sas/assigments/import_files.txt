@@ -1,0 +1,30 @@
+/* Import data github */
+data _null_;
+ version = gitfn_version();
+ put version=;
+
+ rc = gitfn_clone("https://github.com/arm-diaz/data_mining_sas.git",
+   "/home/u60703418/test");
+ put rc=;
+run;
+
+/* Import data from csv */
+proc import datafile="S:/workshop/EPG1V2/data/np_traffic.csv"
+dbms=csv replace out=traffic;
+guessingrows=max;
+run;
+proc contents data=work.traffic;
+run;
+
+/* Import data from dml using pipe */
+proc import datafile="S:/workshop/EPG1V2/data/np_traffic.dat"
+dbms=dlm out=traffic2 replace;
+guessingrows=3000;
+delimiter='|';
+run;
+
+/* Import data from tab */
+proc import datafile="S:/workshop/EPG1V2/data/storm_damage.tab"
+dbms=tab replace out=storm_damage_tab;
+run;
+

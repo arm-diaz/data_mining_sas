@@ -1,0 +1,9 @@
+/* Example 1 */
+libname pg1 "S:/workshop/EPG1V2/data";
+
+/* Example 2 */
+options validvarname=v7;
+libname np xlsx "S:/workshop/EPG1V2/data/np_info.xlsx";
+proc contents data=np.parks;
+run;
+libname np clear;

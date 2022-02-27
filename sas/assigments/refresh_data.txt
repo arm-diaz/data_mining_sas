@@ -1,0 +1,10 @@
+/*************************************************************
+/*   Note: Run this program if you need to create fresh     */
+/*         copies of SAS tables in the SAS Virtual Lab      */
+/************************************************************/
+
+%let path=s:/workshop/EPG1V2;
+
+libname pg1 "&path/data";
+
+%include "&path/data/pg1v2.sas";

@@ -1,0 +1,33 @@
+/* Display first 20 rows */
+proc print data=sashelp.baseball(obs=20);
+run;
+
+proc sort data=sashelp.baseball out=sorted_baseball;
+by Division League Salary;
+run;
+
+/*create a box plot of salary*/
+proc sgplot data=sashelp.baseball;
+	vbox Salary;
+run;
+
+/*create a box plot of salary by league*/
+proc sgplot data=sashelp.baseball;
+	vbox Salary / category=League;
+run;
+
+/*create scatterplot of career RBIs vs salary*/
+proc sgplot data=sashelp.baseball;
+    title "Career RBIs vs Salary";
+	scatter x=CrRbi y=Salary;
+	label CrRbi="Career RBIs" Salary="Salary";
+run;
+
+/*create a trillis plot of salary by division and league*/
+proc sgpanel data=sorted_baseball pctlevel=graph;
+    title "Average of salary by division and league";
+	panelby Division / sort=Descmean;
+	vbar League / response=Salary stat=mean
+	group=Team;
+
+run;

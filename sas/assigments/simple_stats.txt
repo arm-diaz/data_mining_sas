@@ -1,0 +1,33 @@
+/* Display first two rows */
+proc print data=sashelp.cars(obs=2);
+run;
+
+/* Euclidean Distance Matrix for all the records between Weight and MPG_Highway*/
+proc distance data=sashelp.cars out=euDist method=euclid nostd;
+	var interval(Weight MPG_Highway);
+run;
+
+/* Display first two euclidean distances */
+proc print data=work.euDist(obs=2);
+	format Dist: 9.4;
+	var Dist1-Dist2;
+run;
+
+/* Display correlation matrix and covariance */
+ods select Cov PearsonCorr;
+proc corr data=sashelp.cars noprob outp=corr /*Store correlations*/
+	 nomiss /*Remove missing values*/
+	 cov; */Covariances/*
+run;
+
+/*Binary example */
+data want;
+set sashelp.cars(keep=Make Origin);
+if Origin = "Asia"
+then Origin_Asia = 1;
+else Origin_Asia = 0;
+run;
+
+proc freq data=sashelp.cars;
+tables Make Model Type Origin;
+run;
